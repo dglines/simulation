@@ -1,3 +1,21 @@
+    // *****Assignment 33 stuff*****
+var socket = io.connect("http://24.16.255.56:8888");
+socket.on("connect", function () {
+    console.log("Socket connected.")
+});
+socket.on("disconnect", function () {
+    console.log("Socket disconnected.")
+});
+socket.on("reconnect", function () {
+    console.log("Socket reconnected.")
+});
+
+socket.on("load", function (data) {
+    console.log("Loading");
+    recoverState(data);
+});
+
+
 var gameEngine;
 function Background(game, spritesheet) {
     this.x = 0;
@@ -44,7 +62,7 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addEntity(new Carnivore(gameEngine, (1400 * Math.random()) + 50, (400 * Math.random()) + 300));
 
 
-
+    console.log(gameEngine.entities.length);
 });
 function SaveState() {
     console.log("Saving");
@@ -68,11 +86,47 @@ function SaveState() {
             state.push(ent.size);
         }
     }
-    gameEngine.socket.emit("save", { studentname: "David Glines", statename: "gameStateTest", data: state });
+    socket.emit("save", { studentname: "David Glines", statename: "gameStateTest", data: state });
 }
 
 function LoadState() {
-    console.log("Loading");
-    gameEngine.socket.emit("load", { studentname: "David Glines", statename: "gameStateTest" });
+    socket.emit("load", { studentname: "David Glines", statename: "gameStateTest"});
+}
+
+function recoverState(data) {
+    var arr = data.data;
+    var index = 0;
+    for (var i = 0; i < gameEngine.entities.length; i++) {
+        var ent = gameEngine.entities[i];
+        if (ent instanceof Fish || ent instanceof Carnivore) {
+            var value = arr[index++];
+
+            ent.position.x = value.x;
+            ent.position.y = value.y
+            value = arr[index++];
+            ent.velocity.x = value.x;
+            ent.velocity.y = value.y;
+            value = arr[index++];
+            ent.acceleration.x = value.x;
+            ent.acceleration.y = value.y;
+            ent.accelerationTimer = arr[index++];
+            value = arr[index++];
+            ent.OGVelocity.x = value.x;
+            ent.OGVelocity.y = value.y;
+            ent.hungerClock = arr[index++];
+            ent.hungerLevel = arr[index++];
+            ent.movingRight = arr[index++];
+            ent.bellyUp = arr[index++];
+        } else if (ent instanceof FishFood) {
+            value = arr[index++];
+            ent.position.x = value.x;
+            ent.position.y = value.y;
+            value = arr[index++];
+            ent.sinkRate.x = value.x;
+            ent.sinkRate.y = value.y;
+            ent.size = arr[index++];
+        }
+    }
+    console.log("Done Loading");
 
 }

@@ -6,14 +6,15 @@ function Carnivore(game, x, y) {
     this.position = new Vector(x + 70, y +70);
     this.velocity = new Vector(2 * (Math.random() - 0.5), 2 * (Math.random() - 0.5));
     //this.velocity = new Vector(Math.random() * 2, Math.radom()00 * 2);
+    this.OGVelocity = new Vector(this.velocity.x, this.velocity.y);
     this.acceleration = new Vector(0, 0);
     this.accelerationTimer = 0;  // to help smooth out random movement
     this.maxSpeed = 5;
     this.movingRight = false;
-
+    this.chompSound = new Audio("chomp.wav");
     this.boundingCircle = new BoundingCircle(this.position.x, this.position.y, 70);
-    this.vision = new BoundingCircle(this.position.x, this.position.y, 600);
-    this.drawCircles = false;
+    this.vision = new BoundingCircle(this.position.x, this.position.y, 700);
+    this.drawCircles = true;
     this.hungerClock =  5 +(Math.random() * 15);
     this.hungerLevel = 4;
     this.bellyUp = false;
@@ -147,10 +148,12 @@ Carnivore.prototype.findFood = function() {
         this.velocity.add(this.acceleration);
 
         if (this.boundingCircle.collide(nextFood.boundingCircle)) {
+            this.chompSound.play();
             this.bite = true;
             nextFood.isEaten = true;
             this.hungerLevel = 3;
             this.hungerClock = 5 +(Math.random() * 15);
+            this.velocity = this.OGVelocity;
         };
     };
 

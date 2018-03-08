@@ -3,8 +3,10 @@
 <html>
 <head>
     <meta charset="utf-8">
+
     <title>Aquarium Sim</title>
 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="http://24.16.255.56:8888/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./gameengine.js"></script>
@@ -19,8 +21,8 @@
 <body>
     <canvas id="gameWorld" width="1600" height="800" style="border: 1px solid white"></canvas>
     <div>
-        <button id="save" onclick="SaveState()">Save</button>
-        <button id="load" onclick="LoadState()">Load</button>
+        <button class="button" id="save" onclick="SaveState()">Save</button>
+        <button class="button" id="load" onclick="LoadState()">Load</button>
     </div>
 </body>
 </html>

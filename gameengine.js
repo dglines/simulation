@@ -46,23 +46,9 @@ GameEngine.prototype.init = function (ctx) {
     this.timer = new Timer();
     this.startButton = document.getElementById("start");
     this.loadButton = document.getElementById("load");
-    // *****Assignment 33 stuff*****
-    this.socket = io.connect("http://24.16.255.56:8888");
-
-    this.socket.on("connect", function () {
-        console.log("Socket connected.")
-    });
-    this.socket.on("disconnect", function () {
-        console.log("Socket disconnected.")
-    });
-    this.socket.on("reconnect", function () {
-        console.log("Socket reconnected.")
-    });
-
 
     console.log('game initialized');
 }
-
 
 
 
@@ -90,11 +76,17 @@ GameEngine.prototype.startInput = function () {
 
         return { x: x, y: y };
     }
+    // that.socket.on("connect", function () {
+    //     console.log("Socket connected.")
+    // });
+    // that.socket.on("disconnect", function () {
+    //     console.log("Socket disconnected.")
+    // });
+    // that.socket.on("reconnect", function () {
+    //     console.log("Socket reconnected.")
+    // });
 
-    that.socket.on("load", function (data) {
-        console.log(data);
 
-    });
 
     this.ctx.canvas.addEventListener("mousemove", function (e) {
         //console.log(getXandY(e));
