@@ -13,8 +13,8 @@ function Carnivore(game, x, y) {
     this.movingRight = false;
     this.chompSound = new Audio("chomp.wav");
     this.boundingCircle = new BoundingCircle(this.position.x, this.position.y, 70);
-    this.vision = new BoundingCircle(this.position.x, this.position.y, 700);
-    this.drawCircles = true;
+    this.vision = new BoundingCircle(this.position.x, this.position.y, 750);
+    this.drawCircles = false;
     this.hungerClock =  5 +(Math.random() * 15);
     this.hungerLevel = 4;
     this.bellyUp = false;
@@ -192,17 +192,17 @@ Carnivore.prototype.draw = function(ctx) {
             this.Lanimation.drawFrame(this.game.clockTick, ctx, this.position.x - 70, this.position.y - 70, 1);
     }
 
-    ctx.strokeStyle = "red";
-    ctx.font = "12pt Impact";
-    ctx.fillStyle = "red";
-    var text = this.getHungerState();
-    var x = this.position.x;
-    if (this.velocity.x < 0) {
-        x -= 75;
-    } else {
-        x += 75;
-    }
-    ctx.fillText(text, x, this.position.y - 40);
+    // ctx.strokeStyle = "red";
+    // ctx.font = "16pt Impact";
+    // ctx.fillStyle = "red";
+    // var text = this.getHungerState();
+    // var x = this.position.x;
+    // if (this.velocity.x < 0) {
+    //     x -= 75;
+    // } else {
+    //     x += 75;
+    // }
+    // ctx.fillText(text, x, this.position.y - 40);
 
     if (this.drawCircles) {
         this.boundingCircle.draw(ctx);

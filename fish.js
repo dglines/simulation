@@ -219,17 +219,17 @@ Fish.prototype.draw = function(ctx) {
             this.Lanimation.drawFrame(this.game.clockTick, ctx, this.position.x - 40, this.position.y - 40, 1);
     }
 
-    ctx.strokeStyle = "red";
-    ctx.font = "12pt Impact";
-    ctx.fillStyle = "red";
-    var text = this.getHungerState();
-    var x = this.position.x;
-    if (this.velocity.x < 0) {
-        x -= 45;
-    } else {
-        x += 40;
-    }
-    ctx.fillText(text, x, this.position.y - 10);
+    // ctx.strokeStyle = "red";
+    // ctx.font = "12pt Impact";
+    // ctx.fillStyle = "red";
+    // var text = this.getHungerState();
+    // var x = this.position.x;
+    // if (this.velocity.x < 0) {
+    //     x -= 45;
+    // } else {
+    //     x += 40;
+    // }
+    // ctx.fillText(text, x, this.position.y - 10);
 
     if (this.drawCircles) {
         this.boundingCircle.draw(ctx);
