@@ -12,6 +12,7 @@ function Fish(game, x, y) {
     this.accelerationTimer = 0;  // to help smooth out random movement
     this.OGVelocity = new Vector(xSpeed, ySpeed);
     this.maxSpeed = 3;
+
     this.boundingCircle = new BoundingCircle(this.position.x, this.position.y, 35);
     this.vision = new BoundingCircle(this.position.x, this.position.y, 200);
     this.drawCircles = false;

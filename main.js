@@ -47,11 +47,32 @@ ASSET_MANAGER.downloadAll(function () {
 
 });
 function SaveState() {
-    // console.log("Saving", this.gameEngine);
-    socket.emit("save", { studentname: "David Glines", statename: "gameStateTest", data: this });
+    console.log("Saving");
+    var state = [];
+    for (var i = 0; i < gameEngine.entities.length; i++) {
+        var ent = gameEngine.entities[i];
+        if (ent instanceof Fish || ent instanceof Carnivore) {
+            state.push(ent.position);
+            state.push(ent.velocity);
+            state.push(ent.acceleration);
+            state.push(ent.accelerationTimer);
+            state.push(ent.OGVelocity);
+
+            state.push(ent.hungerClock);
+            state.push(ent.hungerLevel);
+            state.push(ent.movingRight);
+            state.push(ent.bellyUp);
+        } else if (ent instanceof FishFood) {
+            state.push(ent.position);
+            state.push(ent.sinkRate);
+            state.push(ent.size);
+        }
+    }
+    gameEngine.socket.emit("save", { studentname: "David Glines", statename: "gameStateTest", data: state });
 }
 
 function LoadState() {
-    // console.log("Loading", this.gameEngine);
+    console.log("Loading");
     gameEngine.socket.emit("load", { studentname: "David Glines", statename: "gameStateTest" });
+
 }

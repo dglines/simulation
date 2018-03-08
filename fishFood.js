@@ -2,7 +2,8 @@ function FishFood(game, x, y) {
     this.game = game;
     this.position = new Vector(x, 5);
     this.sinkRate = new Vector(Math.random() - 0.5, Math.random()/2);
-    this.boundingCircle = new BoundingCircle(this.position.x, this.position.y, (1 + Math.random()) * 3);
+    this.size = (1 + Math.random()) * 3;
+    this.boundingCircle = new BoundingCircle(this.position.x, this.position.y, this.size);
 
     Entity.call(game, this.position.x, this.position.y);
 }

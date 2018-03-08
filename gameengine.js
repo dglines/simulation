@@ -58,9 +58,6 @@ GameEngine.prototype.init = function (ctx) {
     this.socket.on("reconnect", function () {
         console.log("Socket reconnected.")
     });
-    this.socket.on("load", function (data) {
-        console.log(data);
-    });
 
 
     console.log('game initialized');
@@ -94,6 +91,10 @@ GameEngine.prototype.startInput = function () {
         return { x: x, y: y };
     }
 
+    that.socket.on("load", function (data) {
+        console.log(data);
+
+    });
 
     this.ctx.canvas.addEventListener("mousemove", function (e) {
         //console.log(getXandY(e));
