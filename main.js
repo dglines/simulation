@@ -1,4 +1,4 @@
-
+var gameEngine;
 function Background(game, spritesheet) {
     this.x = 0;
     this.y = 0;
@@ -13,7 +13,6 @@ Background.prototype.draw = function () {
 
 Background.prototype.update = function () {
 };
-
 
 
 // the "main" code begins here
@@ -31,7 +30,7 @@ ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
     var ctx = canvas.getContext('2d');
 
-    var gameEngine = new GameEngine();
+    gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
 
@@ -44,20 +43,15 @@ ASSET_MANAGER.downloadAll(function () {
     // gameEngine.addEntity( new Fish(gameEngine, (1400 * Math.random()) + 50, (700 * Math.random()) + 50));
     gameEngine.addEntity(new Carnivore(gameEngine, (1400 * Math.random()) + 50, (400 * Math.random()) + 300));
 
-    // *****Assignment 3 stuff*****
-    var socket = io.connect("http://24.16.255.56:8888");
-    socket.on("connect", function () {
-        console.log("Socket connected.")
-    });
-    socket.on("disconnect", function () {
-        console.log("Socket disconnected.")
-    });
-    socket.on("reconnect", function () {
-        console.log("Socket reconnected.")
-    });
 
-    // this.socket.on("load", function (data) {
-    //     console.log(data);
-    // });
 
 });
+function SaveState() {
+    // console.log("Saving", this.gameEngine);
+    socket.emit("save", { studentname: "David Glines", statename: "gameStateTest", data: this });
+}
+
+function LoadState() {
+    // console.log("Loading", this.gameEngine);
+    gameEngine.socket.emit("load", { studentname: "David Glines", statename: "gameStateTest" });
+}
